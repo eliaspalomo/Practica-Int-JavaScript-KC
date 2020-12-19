@@ -1,0 +1,20 @@
+{
+  "name": "practica",
+  "version": "1.0.0",
+  "description": "Simulador de mundial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eliaspalomo/Practica-Int-JavaScript-KC.git"
+  },
+  "author": "Elias Palomo Vela",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/eliaspalomo/Practica-Int-JavaScript-KC/issues"
+  },
+  "homepage": "https://github.com/eliaspalomo/Practica-Int-JavaScript-KC#readme"
+}
