@@ -11,14 +11,14 @@ Array.prototype.shuffle = function()
 	}
 	return this;
 }
+
 const LOCAL_TEAM = 0
 const AWAY_TEAM = 1
 
 export default class League {
 
-    constructor(team, teams=[], config={}) {
-        this.name = team.name
-        this.pointsFIFA = team.pointsFIFA
+    constructor(name, teams=[], config={}) {
+        this.name = name
         this.matchDaySchedule = []
         this.setup(config)
         this.setupTeams(teams)
@@ -38,10 +38,10 @@ export default class League {
         this.teams.shuffle()
     }
 
-    customizeTeam(team) {
+    customizeTeam(teamName) {
         return {
-            name: team.name,
-            pointsFIFA = team.pointsFIFA,
+            name: teamName.name,
+            pointsFIFA: teamName.pointsFIFA, 
             matchesWon: 0,
             matchesDrawn: 0,
             matchesLost: 0

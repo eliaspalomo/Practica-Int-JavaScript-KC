@@ -1,8 +1,8 @@
 import League from './League.js'
 
 export default class PointsBasedLeague extends League {
-    constructor(team, teams=[], config={}) {
-        super(team, teams, config)
+    constructor(groupName, teams=[], config={}) {
+        super(groupName, teams, config)
     }
 
     setup(config) {
@@ -17,10 +17,7 @@ export default class PointsBasedLeague extends League {
 
     customizeTeam(teamName) {
         const customizeTeam = super.customizeTeam(teamName)
-        //customizeTeam.points = 0
-        //customizeTeam.goalsFor = 0
-        //customizeTeam.goalsAginst = 0
-        //return customizeTeam
+        
         return{
             points: 0,
             goalsFor: 0,

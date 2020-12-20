@@ -14,37 +14,53 @@ Array.prototype.shuffle = function()
 
 const arrayshuffle = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
-import PointsBasedLeague from './classes/PointsBasedLeague.js'
+import PointsBasedLeague from './PointsBasedLeague.js'
 
 export default class GroupLeagueTeams {
     constructor(groups, teams=[], config={}) {
         this.groupsLeagueTeams = []
-        this.setup(groups)
-        this.drawteams(groups, teams)
+        this.setup(groups, teams, config)
+    }
+
+    setup(groups, teamsdraw, config) {
+        //Hacemso el sorteo
+        const groupA = [], groupB = [], groupC = [], groupD = [], groupE = [], groupF = [], groupG = [], groupH = []
+
+        //TODO ordenar por puntos de FIFA
+        let i = 0
+        arrayshuffle.shuffle
+        teamsdraw.forEach(teamDraw =>{
+            if(arrayshuffle[i] == 'A'){groupA.push(teamDraw)}
+            if(arrayshuffle[i] == 'B'){groupB.push(teamDraw)}
+            if(arrayshuffle[i] == 'C'){groupC.push(teamDraw)}
+            if(arrayshuffle[i] == 'D'){groupD.push(teamDraw)}
+            if(arrayshuffle[i] == 'E'){groupE.push(teamDraw)}
+            if(arrayshuffle[i] == 'F'){groupF.push(teamDraw)}
+            if(arrayshuffle[i] == 'G'){groupG.push(teamDraw)}
+            if(arrayshuffle[i] == 'H'){groupH.push(teamDraw)}
+
+            i ++
+            if(i == 8){
+                i = 0
+                arrayshuffle.shuffle
+            }
+        })
+
+        groups.forEach(val =>{
+            let GroupLeague = {}
+            let teamsGroup = []
+            if(val == 'A'){teamsGroup = groupA}
+            if(val == 'B'){teamsGroup = groupB}
+            if(val == 'C'){teamsGroup = groupC}
+            if(val == 'D'){teamsGroup = groupD}
+            if(val == 'E'){teamsGroup = groupE}
+            if(val == 'F'){teamsGroup = groupF}
+            if(val == 'G'){teamsGroup = groupG}
+            if(val == 'H'){teamsGroup = groupH}
+
+            GroupLeague = new PointsBasedLeague(val, teamsGroup, config)
+            GroupLeague.scheduleMatchDays()
+            this.groupsLeagueTeams.push(GroupLeague)
+        })
     }
 }
-function setup(groups){
-    groups.forEach(val =>{
-        nameGroup = val
-        groupsLeagueTeams.push(nameGroup)
-    })
-}
-
-function drawteams (groupsdraw, teamsdraw){
-    
-
-    //TODO ordenar por puntos de FIFA
-    i = 0
-    arrayshuffle.shuffle
-    teamsdraw.forEach(teamDraw =>{
-
-        i ++
-        if(i==8){
-            i = 0
-            arrayshuffle.shuffle
-        }
-    })
-}
-
-
-GroupsLeague.forEach(val =>{new GroupLeague(val, ...MundialTeams, config)})
