@@ -22,14 +22,60 @@ export function initMundial(groupsteams){
     console.log('Comienza el Mundial de Simualdor KC')
 }
 
-export function jornadasMundial(groupsteams){
-    //TODO 
+export function jornadasMundial(groupsTeams){
+    //TO_DO 
 }
 
-export function EliminatoryMundial(fase, arrayteams){
-//TODO 
+export function eliminatoryMundial(fase, arrayTeams){
+    if (fase == 8){console.log('===== OCTAVOS DE FINAL =====')}
+    if (fase == 4){console.log('===== CUARTOS DE FINAL =====')}
+    if (fase == 2){console.log('======= SEMIFINALES ========')}
+    console.log('')
+    let teamL, resultL, teamA, resultA, winner
+    for (let paring of arrayTeams){
+        teamL = paring.localteam.name
+        resultL = paring.localgoals
+        teamA = paring.awayteam.name
+        resultA = paring.awaygoals
+        winner = paring.winnerteam
+        mostrarResultadoEliminatoria(teamL, resultL, teamA, resultA, winner)
+    }
+    console.log('')
 }
 
-export function finalesMundial(arrayteams){
-//TODO 
+export function finalesMundial(arrayTeams){
+    const teamCL, resultCL, teamCA, resultCA, winnerC, teamLL, resultLL, teamLA, resultLA, winnerL, champion
+    for (let paring of arrayTeams){
+        if(paring.name == 'Final'){
+            teamCL = paring.localteam.name
+            resultCL = paring.localgoals
+            teamCA = paring.awayteam.name
+            resultCA = paring.awaygoals
+            winnerC = paring.winnerteam
+            champion = winnerC
+        }else{
+            teamLL = paring.localteam.name
+            resultLL = paring.localgoals
+            teamLA = paring.awayteam.name
+            resultLA = paring.awaygoals
+            winnerL = paring.winnerteam
+        }
+    }
+
+    console.log('===== TERCER Y CUARTO PUESTO =====')
+    console.log('')
+    mostrarResultadoEliminatoria(teamLL, resultLL, teamLA, resultLA, winnerL)
+    console.log('')
+    console.log('===== FINAL =====')
+    console.log('')
+    mostrarResultadoEliminatoria(teamCL, resultCL, teamCA, resultCA, winnerC)
+    console.log('')
+    console.log('===============================================')
+    console.log('¡', champion, 'campeón del mundo!')
+    console.log('===============================================')
+
+}
+
+function mostrarResultadoEliminatoria(teamL, resultL, teamA, resultA, winner){
+        console.log(`${teamL} ${resultL} - ${resultA} ${teamA} => ${winner} `)
 }

@@ -26,7 +26,7 @@ export default class GroupLeagueTeams {
         //Hacemso el sorteo
         const groupA = [], groupB = [], groupC = [], groupD = [], groupE = [], groupF = [], groupG = [], groupH = []
 
-        //TODO ordenar por puntos de FIFA
+        //TO_DO ordenar por puntos de FIFA
         let i = 0
         arrayshuffle.shuffle
         teamsdraw.forEach(teamDraw =>{
