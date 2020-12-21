@@ -15,5 +15,8 @@ La variables debug, la utilizo para ver los mensajes por bloques
     * Planficación
     * Inicio del Torneo
 * 2 -> Jornadas con los partidos y resultados, y la clasificación de cada Jornada
-* 3 -> Inicio de Eliminatorias, con Octavos, Cuartos, Semifinal y Final, y El Campeón
+* 3 -> Eliminatorias Octavos
+* 4 -> Eliminatorias Cuartos
+* 5 -> Eliminatorias Semifinal
+* 6 -> Eliminatorias Final, y El Campeón
 

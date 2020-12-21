@@ -21,3 +21,15 @@ export function initMundial(groupsteams){
 
     console.log('Comienza el Mundial de Simualdor KC')
 }
+
+export function jornadasMundial(groupsteams){
+    //TODO 
+}
+
+export function EliminatoryMundial(fase, arrayteams){
+//TODO 
+}
+
+export function finalesMundial(arrayteams){
+//TODO 
+}
