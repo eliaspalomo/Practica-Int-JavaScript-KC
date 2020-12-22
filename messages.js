@@ -1,51 +1,101 @@
+const largoMessage = 48
+const mostrarResultado     = (teamL, resultL, teamA, resultA)         => {console.log(`${teamL} ${resultL} - ${resultA} ${teamA}`)}
+const mostrarResultadoElim = (teamL, resultL, teamA, resultA, winner) => {console.log(`${teamL} ${resultL} - ${resultA} ${teamA} => ${winner} `)}
+const linea                = ()                                       => {console.log('')}
+const championLine         = (teamWinner)                             => {console.log(`¡ ${teamWinner} campeón del mundo!`)}
+const group                = (grupo)                                  => {console.log(`- Grupo ${grupo}`)}
+const teamsLine            = (nameT, pointsT)                         => {console.log(`     ${nameT} con los Puntos FIFA ${pointsT}`)}
+const jornadaLine          = (jornada)                                => {console.log(`        Jornada ${jornada}`)}
+const jornadaLineGrupo     = (group, jornada)                         => {console.log(`Grupo ${group} - Jornada ${jornada}`)}
+const partidosLine         = (partidos)                               => {console.log('            ', partidos)}
+const tablaClasification   = (standing)                               => {console.table(standing, ['name', 'points', 'goalsFor', 'goalsAgainst'])} 
+const iguales = () => {
+    let cadena = ''
+    while (cadena.length < largoMessage) {cadena += '='}
+    console.log(cadena)
+}
+
+const guiones = () => {
+    let cadena = ''
+    while (cadena.length < (largoMessage/2)) {cadena += '-'}
+    console.log(cadena)
+}
+
+const lineaText = (texto) => {
+    texto = ' ' + texto + ' '
+    if(texto.length % 2 != 0) {texto = texto + ' '}
+    while (texto.length < largoMessage) {texto = '=' + texto + '='}
+    console.log(texto)
+}
+
+export function initialError(){
+    console.log('Imposible empezar el Mundial, porque deben ser 32 equipos')
+}
+
 export function initMundial(groupsteams){
-    console.log('Bienvenido al Mundial de Simualdor KC')
-    console.log('Grupos y su planificación')
+    lineaText('Bienvenido al Mundial de Simualdor KC')
+    lineaText('Grupos y su planificación')
+    iguales()
+    linea()
 
     groupsteams.groupsLeagueTeams.forEach(groupLeage =>{
-        console.log('- Grupo', groupLeage.name)
-        groupLeage.teams.forEach(team=>{
-            console.log('    ', team.name, 'con los Puntos FIFA', team.pointsFIFA)
-        })
-        
+        group(groupLeage.name)
+        groupLeage.teams.forEach(team=>{teamsLine(team.name, team.pointsFIFA)})
         let i = 1
         groupLeage.matchDaySchedule.forEach(matchDay =>{
-            console.log(`        Jornada ${i}`)
-            matchDay.forEach(match => {
-                console.log('            ', match.join(' vs '))
-            })
+            jornadaLine(i)
+            matchDay.forEach(match => {partidosLine(match.join(' vs '))})
             i++
         })
-    
     })
 
-    console.log('Comienza el Mundial de Simualdor KC')
+    linea()
+    lineaText('Comienza el Mundial de Simualdor KC')
 }
 
 export function jornadasMundial(groupsTeams){
-    //TO_DO 
+    groupsTeams.groupsLeagueTeams.forEach(groupLeagueTeams =>{
+        let i = 1
+        groupLeagueTeams.summaries.forEach(summary => {
+            jornadaLineGrupo(groupLeagueTeams.name,i)
+            guiones()
+            summary.results.forEach(result => {
+                mostrarResultado(result.localTeam, result.localGoals, result.awayTeam, result.awayGoals)
+            })
+            //TO_DO, FALTA PONER BIEN LAS CABECERAS
+            tablaClasification(summary.standing)
+            i++
+        })
+    })
 }
 
 export function eliminatoryMundial(fase, arrayTeams){
-    if (fase == 8){console.log('===== OCTAVOS DE FINAL =====')}
-    if (fase == 4){console.log('===== CUARTOS DE FINAL =====')}
-    if (fase == 2){console.log('======= SEMIFINALES ========')}
-    console.log('')
+    if (fase == 8){
+        iguales()
+        lineaText('COMIENZO DE LA FASE DE ELIMINATORIAS')
+        iguales()
+        linea()
+        lineaText('OCTAVOS DE FINAL')
+    }
+    if (fase == 4){lineaText('CUARTOS DE FINAL')}
+    if (fase == 2){lineaText('SEMIFINALES')}
+    linea()
+
     let teamL, resultL, teamA, resultA, winner
-    for (let paring of arrayTeams){
+    for (const paring of arrayTeams){
         teamL = paring.localteam.name
         resultL = paring.localgoals
         teamA = paring.awayteam.name
         resultA = paring.awaygoals
         winner = paring.winnerteam
-        mostrarResultadoEliminatoria(teamL, resultL, teamA, resultA, winner)
+        mostrarResultadoElim(teamL, resultL, teamA, resultA, winner)
     }
-    console.log('')
+    linea()
 }
 
 export function finalesMundial(arrayTeams){
-    const teamCL, resultCL, teamCA, resultCA, winnerC, teamLL, resultLL, teamLA, resultLA, winnerL, champion
-    for (let paring of arrayTeams){
+    let teamCL, resultCL, teamCA, resultCA, winnerC, teamLL, resultLL, teamLA, resultLA, winnerL, champion
+    for (const paring of arrayTeams){
         if(paring.name == 'Final'){
             teamCL = paring.localteam.name
             resultCL = paring.localgoals
@@ -62,20 +112,15 @@ export function finalesMundial(arrayTeams){
         }
     }
 
-    console.log('===== TERCER Y CUARTO PUESTO =====')
-    console.log('')
+    lineaText('TERCER Y CUARTO PUESTO')
+    linea()
     mostrarResultadoEliminatoria(teamLL, resultLL, teamLA, resultLA, winnerL)
-    console.log('')
-    console.log('===== FINAL =====')
-    console.log('')
+    linea()
+    lineaText('FINAL')
+    linea()
     mostrarResultadoEliminatoria(teamCL, resultCL, teamCA, resultCA, winnerC)
-    console.log('')
-    console.log('===============================================')
-    console.log('¡', champion, 'campeón del mundo!')
-    console.log('===============================================')
-
-}
-
-function mostrarResultadoEliminatoria(teamL, resultL, teamA, resultA, winner){
-        console.log(`${teamL} ${resultL} - ${resultA} ${teamA} => ${winner} `)
+    linea()
+    iguales()
+    championLine(champion)
+    iguales()
 }

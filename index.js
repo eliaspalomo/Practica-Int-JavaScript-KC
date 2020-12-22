@@ -1,13 +1,13 @@
-let debug = 0
+const debug = 2
 
-import {initMundial, jornadasMundial, eliminatoryMundial, finalesMundial} from './messages.js'
-import {MundialTeams}  from './teamsPoints.js'
+import {initialError, initMundial, jornadasMundial, eliminatoryMundial, finalesMundial} from './messages.js'
+import {MundialTeams} from './teamsPoints.js'
 import GroupLeagueTeams from './classes/GroupLeagueTeams.js'
 import {eighthsPairing, quartersPairing, semifinalsPairing, finalPairing} from './pairingPhase.js'
 import gameEliminatory from './gameEliminatory.js'
 
 if(MundialTeams.length != 32) {
-    console.log('Imposible empezar el Mundial, porque deben ser 32 equipos')
+    initialError()
 }else{
     //Inicio del Mundial, con los Grupos, sus equipos y la planificacion de Jornadas
     const config = { rounds:1 }
@@ -16,22 +16,26 @@ if(MundialTeams.length != 32) {
     if (debug == 0 || debug == 1) {initMundial(GroupsLeagueAll)}
 
     //Jornadas de la fase de Grupos
-    //TO_DO Jornadas de las liguillas
+    GroupsLeagueAll.start()
     if (debug == 0 || debug == 2) {jornadasMundial(GroupsLeagueAll)}
 
     //Eliminatorias
+    //Octavos
     const eighths = eighthsPairing(GroupsLeagueAll)
     gameEliminatory(eighths)
     if (debug == 0 || debug >= 3) {eliminatoryMundial(8, eighths)}
 
+    //Cuartos
     const quarters = quartersPairing(eighths)
     gameEliminatory(quarters)
     if (debug == 0 || debug >= 4) {eliminatoryMundial(4, quarters)}
 
+    //Semifinales
     const semifinals = semifinalsPairing(quarters)
     gameEliminatory(semifinals)
     if (debug == 0 || debug >= 5) {eliminatoryMundial(2, semifinals)}
 
+    //Finales
     const final = finalPairing(semifinals)
     gameEliminatory(final)
     if (debug == 0 || debug >= 6) {finalesMundial(final)}

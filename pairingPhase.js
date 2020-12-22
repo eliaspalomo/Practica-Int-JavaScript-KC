@@ -4,18 +4,21 @@ const arrayTeamsReturn = []
 
 export function eighthsPairing(groupsTeams) {
     //TO_DO 
+    return []
 }
 
 export function quartersPairing(arrayteams) {
 //TO_DO 
+return []
 }
 
 export function semifinalsPairing(arrayTeams) {
 //TO_DO 
+return []
 }
 
 export function finalPairing(arrayTeams) {
-    const winner1, winner2, loser1, loser2
+    /*const winner1, winner2, loser1, loser2
     for (let i = 0; i < arrayTeams.length; i++){
         const paring = arrayTeams[i]
         if(i==0){
@@ -31,5 +34,6 @@ export function finalPairing(arrayTeams) {
     const paringL = new Eliminatory('3 y 4', loser1, loser2)
     arrayTeamsReturn.push(paringW)
     arrayTeamsReturn.push(paringL)
-    return(arrayTeamsReturn)
+    return(arrayTeamsReturn)*/
+    return []
 }

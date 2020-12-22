@@ -12,8 +12,8 @@ Array.prototype.shuffle = function()
 	return this;
 }
 
-const LOCAL_TEAM = 0
-const AWAY_TEAM = 1
+export const LOCAL_TEAM = 0
+export const AWAY_TEAM = 1
 
 export default class League {
 
@@ -22,6 +22,8 @@ export default class League {
         this.matchDaySchedule = []
         this.setup(config)
         this.setupTeams(teams)
+
+        this.summaries = []
     }
 
     setup(config) {
@@ -50,10 +52,10 @@ export default class League {
 
     initSchedule(round){
         const numberOfMatchDays = this.teams.length - 1
-        const nummerOfmachesPerMatchDay = this.teams.length / 2
+        const numberOfMatchesPerMatchDay = this.teams.length / 2
         for (let i = 0; i <numberOfMatchDays; i++){
             const matchDay = []
-            for (let j = 0; j < nummerOfmachesPerMatchDay; j++) {
+            for (let j = 0; j < numberOfMatchesPerMatchDay; j++) {
                 const match = ['local', 'visitante']
                 matchDay.push(match)
             }
@@ -74,13 +76,13 @@ export default class League {
         }
 
     }
+    
     setLocalTeams(round){
         const teamNames = this.getTeamNamesForSchedule()
         const maxHomeTeams = teamNames.length - 1
         let teamIndex = 0
-        round.forEach(matchDay => {//cada jornada
-            matchDay.forEach(match => {//cada partido
-                //poner el equipo local
+        round.forEach(matchDay => {
+            matchDay.forEach(match => {
                 match[LOCAL_TEAM] = teamNames[teamIndex]
                 teamIndex ++
                 if (teamIndex == maxHomeTeams) {teamIndex = 0}
@@ -92,10 +94,9 @@ export default class League {
         const teamNames = this.getTeamNamesForSchedule()
         const maxAwayTeams = teamNames.length - 2
         let teamIndex = maxAwayTeams
-        round.forEach(matchDay => {//cada jornada
+        round.forEach(matchDay => {
             let isFirstMatch = true
-            matchDay.forEach(match => {//cada partido
-                //poner el equipo visitante
+            matchDay.forEach(match => {
                 if (isFirstMatch){
                     isFirstMatch = false
                 }else{
@@ -111,12 +112,12 @@ export default class League {
         let matchDayNumber = 1
         const teamNames = this.getTeamNamesForSchedule()
         const lastTeamName = teamNames[teamNames.length -1]
-        round.forEach(matchDay => {//cada jornada
+        round.forEach(matchDay => {
             const firstMatch = matchDay[0]
-            if ((matchDayNumber % 2) == 0){//jornada par -> juega en casa
+            if ((matchDayNumber % 2) == 0){
                 firstMatch[AWAY_TEAM] = firstMatch[LOCAL_TEAM]
                 firstMatch[LOCAL_TEAM] = lastTeamName
-            }else{//jornada impar -> juega fuera
+            }else{
                 firstMatch[AWAY_TEAM] = lastTeamName
             }
             matchDayNumber++
@@ -146,5 +147,52 @@ export default class League {
         this.setAwayTeams(newRound)
         this.fixLastTeamSchedule(newRound)
         return newRound
+    }
+
+    scheduleMatchDays2() {
+        const newRound = this.createRound()
+        const i = 1
+        this.matchDaySchedule = this.matchDaySchedule.concat(newRound)
+        const secondRound = this.matchDaySchedule.map(matchDay => {
+            return matchDay.map(match => {
+                const newMatch = [...match]
+                if (i % 2 != 0) {
+                    const localTEam = newMatch[LOCAL_TEAM]
+                    newMatch[LOCAL_TEAM] = newMatch[AWAY_TEAM]
+                    newMatch[AWAY_TEAM] = localTEam
+                }
+                return newMatch
+            })
+        })
+        this.matchDaySchedule = this.matchDaySchedule.concat(secondRound)
+    }
+
+    start() {
+        for (const matchDay of this.matchDaySchedule){
+            const matchDaySummary = {
+                results: [],
+                standing: null
+            }
+            for (const match of matchDay){
+                const result = this.play(match)
+                this.updateTeams(result)
+                matchDaySummary.results.push(result)
+            }
+            this.getStanding()
+            matchDaySummary.standing = this.teams.map(team => Object.assign({}, team))
+            this.summaries.push(matchDaySummary)
+        }
+    }
+
+    getStanding(){
+        throw new Error('getStanding method not implented')
+    }
+
+    updateTeams(result){
+        throw new Error('updateTeams method not implented')
+    }
+
+    play(match){
+        throw new Error('Play method not implented')
     }
 }

@@ -23,12 +23,20 @@ export default class GroupLeagueTeams {
     }
 
     setup(groups, teamsdraw, config) {
-        //Hacemso el sorteo
         const groupA = [], groupB = [], groupC = [], groupD = [], groupE = [], groupF = [], groupG = [], groupH = []
 
-        //TO_DO ordenar por puntos de FIFA
+        teamsdraw.sort(function(teamA, teamB){
+            if(teamA.pointsFIFA > teamB.pointsFIFA) {
+                return -1
+            } else if(teamA.pointsFIFA < teamB.pointsFIFA) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        
         let i = 0
-        arrayshuffle.shuffle
+        arrayshuffle.shuffle()
         teamsdraw.forEach(teamDraw =>{
             if(arrayshuffle[i] == 'A'){groupA.push(teamDraw)}
             if(arrayshuffle[i] == 'B'){groupB.push(teamDraw)}
@@ -42,7 +50,7 @@ export default class GroupLeagueTeams {
             i ++
             if(i == 8){
                 i = 0
-                arrayshuffle.shuffle
+                arrayshuffle.shuffle()
             }
         })
 
@@ -62,5 +70,9 @@ export default class GroupLeagueTeams {
             GroupLeague.scheduleMatchDays()
             this.groupsLeagueTeams.push(GroupLeague)
         })
+    }
+
+    start(){
+        this.groupsLeagueTeams.forEach(groupTeams => {groupTeams.start()})
     }
 }
