@@ -1,4 +1,4 @@
-const debug = 2
+const debug = 0
 
 import {initialError, initMundial, jornadasMundial, eliminatoryMundial, finalesMundial} from './messages.js'
 import {MundialTeams} from './teamsPoints.js'

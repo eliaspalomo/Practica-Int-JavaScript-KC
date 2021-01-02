@@ -1,5 +1,4 @@
 function generateGoals(factor){
-    //TO_DO hacerlo con los puntosFIFA
     return Math.round(Math.random() * factor)
 }
 

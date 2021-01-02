@@ -8,7 +8,7 @@ const teamsLine            = (nameT, pointsT)                         => {consol
 const jornadaLine          = (jornada)                                => {console.log(`        Jornada ${jornada}`)}
 const jornadaLineGrupo     = (group, jornada)                         => {console.log(`Grupo ${group} - Jornada ${jornada}`)}
 const partidosLine         = (partidos)                               => {console.log('            ', partidos)}
-const tablaClasification   = (standing)                               => {console.table(standing, ['name', 'points', 'goalsFor', 'goalsAgainst'])} 
+const tablaClasification   = (standing)                               => {console.table(standing)} 
 const iguales = () => {
     let cadena = ''
     while (cadena.length < largoMessage) {cadena += '='}
@@ -54,6 +54,7 @@ export function initMundial(groupsteams){
 }
 
 export function jornadasMundial(groupsTeams){
+    //TO_DO 5, poner primero las jornadas todos los equipos
     groupsTeams.groupsLeagueTeams.forEach(groupLeagueTeams =>{
         let i = 1
         groupLeagueTeams.summaries.forEach(summary => {
@@ -62,8 +63,16 @@ export function jornadasMundial(groupsTeams){
             summary.results.forEach(result => {
                 mostrarResultado(result.localTeam, result.localGoals, result.awayTeam, result.awayGoals)
             })
-            //TO_DO, FALTA PONER BIEN LAS CABECERAS
-            tablaClasification(summary.standing)
+            
+            tablaClasification(summary.standing.map(team => {
+                    return {
+                        Equipo: team.name,
+                        Puntos: team.points,
+                        Goles_favor: team.goalsFor,
+                        Goles_contra: team.goalsAgainst,
+                        Diferencia_goles: team.goalsFor - team.goalsAgainst}
+                    })
+                )
             i++
         })
     })

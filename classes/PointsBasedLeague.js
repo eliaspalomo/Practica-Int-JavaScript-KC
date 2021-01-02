@@ -72,7 +72,7 @@ export default class PointsBasedLeague extends League {
             } else if(teamA.points < teamB.points) {
                 return 1
             } else {
-                const ordenTeams = 0//TO_DO, orden primero de partidos entre ellos
+                const ordenTeams = 0//TO_DO 10, orden primero de partidos entre ellos
                 if (ordenTeams == 0) {
                     const goalsDiffA = teamA.goalsFor - teamA.goalsAgainst
                     const goalsDiffB = teamB.goalsFor - teamB.goalsAgainst
