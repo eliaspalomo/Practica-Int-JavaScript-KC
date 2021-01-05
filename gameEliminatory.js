@@ -1,10 +1,10 @@
-import {playGame} from '../utiles.js'
+import {playGame} from './utiles.js'
 
 export default function gameEliminatory(arrayteams) {
-    arrayteams.array.forEach(game => {
+    arrayteams.forEach(game => {
         const result = playGame(game.localteam, game.awayteam, false)
         game.localgoals = result.localGoals
-        game.awaygoals = 0
+        game.awaygoals = result.awayGoals
         //siempre viene un resultado distinto
         if(result.localGoals > result.awayGoals){
             game.winnerteam = game.localteam

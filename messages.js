@@ -1,6 +1,7 @@
-const largoMessage = 48
-const mostrarResultado     = (teamL, resultL, teamA, resultA)         => {console.log(`${teamL} ${resultL} - ${resultA} ${teamA}`)}
-const mostrarResultadoElim = (teamL, resultL, teamA, resultA, winner) => {console.log(`${teamL} ${resultL} - ${resultA} ${teamA} => ${winner} `)}
+const largoMessage = 60
+const largoTeam = 15
+const mostrarResultado     = (teamL, resultL, teamA, resultA)         => {console.log(`${teamLocal(teamL)} ${resultPlay(resultL, resultA)} ${teamAway(teamA)}`)}
+const mostrarResultadoElim = (teamL, resultL, teamA, resultA, winner) => {console.log(`${teamLocal(teamL)} ${resultPlay(resultL, resultA)} ${teamAway(teamA)} => ${winner} `)}
 const linea                = ()                                       => {console.log('')}
 const championLine         = (teamWinner)                             => {console.log(`¡ ${teamWinner} campeón del mundo!`)}
 const group                = (grupo)                                  => {console.log(`- Grupo ${grupo}`)}
@@ -26,6 +27,51 @@ const lineaText = (texto) => {
     if(texto.length % 2 != 0) {texto = texto + ' '}
     while (texto.length < largoMessage) {texto = '=' + texto + '='}
     console.log(texto)
+}
+
+const resultPlay = (resultL, resultA) => {
+    let enteroL, decimalL, enteroA, decimalA
+    let enteroLC, decimalLC, enteroAC, decimalAC, cadenaL, cadenaA, cadenaFinal
+    decimalL = Math.round((resultL * 10) % 10)
+    enteroL = Math.round(((resultL * 10) - decimalL) / 10)
+    decimalA = Math.round((resultA * 10) % 10)
+    enteroA = Math.round(((resultA * 10) - decimalA) / 10)
+    enteroLC = enteroL.toString()
+    decimalLC = decimalL.toString()
+    enteroAC = enteroA.toString()
+    decimalAC = decimalA.toString()
+
+    if(enteroLC.length == 1) {enteroLC = ' ' + enteroLC}
+    if(enteroAC.length == 1) {enteroAC = ' ' + enteroAC}
+
+    if (decimalL == 0) {
+        cadenaL = enteroLC + '   '
+    }else{
+        cadenaL = enteroLC + '(' + decimalLC + ')'
+    }
+
+    if (decimalA == 0) {
+        cadenaA = enteroAC + '   '
+    }else{
+        cadenaA = enteroAC + '(' + decimalAC + ')'
+    }
+
+    cadenaFinal = cadenaL + ' - ' + cadenaA
+    return cadenaFinal
+}
+
+const teamLocal = (team) => {
+    while (team.length < largoTeam) {
+        team = ' ' + team
+    }
+    return team
+}
+
+const teamAway = (team) => {
+    while (team.length < largoTeam) {
+        team = team + ' '
+    }
+    return team
 }
 
 export function initialError(){
@@ -92,9 +138,9 @@ export function eliminatoryMundial(fase, arrayTeams){
 
     let teamL, resultL, teamA, resultA, winner
     for (const paring of arrayTeams){
-        teamL = paring.localteam.name
+        teamL = paring.localteam
         resultL = paring.localgoals
-        teamA = paring.awayteam.name
+        teamA = paring.awayteam
         resultA = paring.awaygoals
         winner = paring.winnerteam
         mostrarResultadoElim(teamL, resultL, teamA, resultA, winner)
@@ -106,16 +152,16 @@ export function finalesMundial(arrayTeams){
     let teamCL, resultCL, teamCA, resultCA, winnerC, teamLL, resultLL, teamLA, resultLA, winnerL, champion
     for (const paring of arrayTeams){
         if(paring.name == 'Final'){
-            teamCL = paring.localteam.name
+            teamCL = paring.localteam
             resultCL = paring.localgoals
-            teamCA = paring.awayteam.name
+            teamCA = paring.awayteam
             resultCA = paring.awaygoals
             winnerC = paring.winnerteam
             champion = winnerC
         }else{
-            teamLL = paring.localteam.name
+            teamLL = paring.localteam
             resultLL = paring.localgoals
-            teamLA = paring.awayteam.name
+            teamLA = paring.awayteam
             resultLA = paring.awaygoals
             winnerL = paring.winnerteam
         }
@@ -123,11 +169,11 @@ export function finalesMundial(arrayTeams){
 
     lineaText('TERCER Y CUARTO PUESTO')
     linea()
-    mostrarResultadoEliminatoria(teamLL, resultLL, teamLA, resultLA, winnerL)
+    mostrarResultadoElim(teamLL, resultLL, teamLA, resultLA, winnerL)
     linea()
     lineaText('FINAL')
     linea()
-    mostrarResultadoEliminatoria(teamCL, resultCL, teamCA, resultCA, winnerC)
+    mostrarResultadoElim(teamCL, resultCL, teamCA, resultCA, winnerC)
     linea()
     iguales()
     championLine(champion)

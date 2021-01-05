@@ -72,25 +72,20 @@ export default class PointsBasedLeague extends League {
             } else if(teamA.points < teamB.points) {
                 return 1
             } else {
-                const ordenTeams = 0//TO_DO 10, orden primero de partidos entre ellos
-                if (ordenTeams == 0) {
-                    const goalsDiffA = teamA.goalsFor - teamA.goalsAgainst
-                    const goalsDiffB = teamB.goalsFor - teamB.goalsAgainst
-                    if (goalsDiffA > goalsDiffB) {
+                const goalsDiffA = teamA.goalsFor - teamA.goalsAgainst
+                const goalsDiffB = teamB.goalsFor - teamB.goalsAgainst
+                if (goalsDiffA > goalsDiffB) {
+                    return -1
+                } else if (goalsDiffA < goalsDiffB) {
+                    return 1
+                } else {
+                    if (teamA.name > teamB.name) {
                         return -1
-                    } else if (goalsDiffA < goalsDiffB) {
+                    } else if (teamA.name < teamB.name) {
                         return 1
                     } else {
-                        if (teamA.name > teamB.name) {
-                            return -1
-                        } else if (teamA.name < teamB.name) {
-                            return 1
-                        } else {
-                            return 0
-                        }
+                        return 0
                     }
-                }else{
-                    return ordenTeams
                 }
             }
         })

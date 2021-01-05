@@ -1,8 +1,7 @@
 import Eliminatory from './classes/Eliminatory.js'
 
-const arrayTeamsReturn = []
-
 export function eighthsPairing(groupsTeams) {
+    let arrayTeamsReturn = []
     const cuadro1 = [], cuadro2 = []
     let alternate = 1, paringNumber = 1
     let winner1, loser1, winner2, loser2
@@ -36,50 +35,53 @@ export function eighthsPairing(groupsTeams) {
     return arrayTeamsReturn
 }
 
-export function quartersPairing(arrayteams) {
-    let alternate = 1, paringNumber = 1
+export function quartersPairing(arrayTeams) {
+    let arrayTeamsReturn = []
+    let alternate = 1, pairingNumber = 1
     let winner1, winner2
-    arrayteams.forEach(paring => {
+    arrayTeams.forEach(pairing => {
         if (alternate==1){
-            winner1 = paring.winnerteam
+            winner1 = pairing.winnerteam
         }else{
-            winner2 = paring.winnerteam
+            winner2 = pairing.winnerteam
         }
         
         alternate = alternate *(-1)
         //cuando es 1, debemos crear nueva eliminatoria
         if (alternate == 1){
-            const paring = new Eliminatory('Cuartos ' + paringNumber, winner1, winner2)
-            arrayTeamsReturn.push(paring)
-            paringNumber++
+            const pairing = new Eliminatory('Cuartos ' + pairingNumber, winner1, winner2)
+            arrayTeamsReturn.push(pairing)
+            pairingNumber++
         }
     });
     return arrayTeamsReturn
 }
 
 export function semifinalsPairing(arrayTeams) {
-    let alternate = 1, paringNumber = 1
+    let arrayTeamsReturn = []
+    let alternate = 1, pairingNumber = 1
     let winner1, winner2
-    arrayteams.forEach(paring => {
+    arrayTeams.forEach(pairing => {
         if (alternate==1){
-            winner1 = paring.winnerteam
+            winner1 = pairing.winnerteam
         }else{
-            winner2 = paring.winnerteam
+            winner2 = pairing.winnerteam
         }
         
         alternate = alternate *(-1)
         //cuando es 1, debemos crear nueva eliminatoria
         if (alternate == 1){
-            const paring = new Eliminatory('Semifinal ' + paringNumber, winner1, winner2)
-            arrayTeamsReturn.push(paring)
-            paringNumber++
+            const pairing = new Eliminatory('Semifinal ' + pairingNumber, winner1, winner2)
+            arrayTeamsReturn.push(pairing)
+            pairingNumber++
         }
     });
     return arrayTeamsReturn
 }
 
 export function finalPairing(arrayTeams) {
-    const winner1, winner2, loser1, loser2
+    let arrayTeamsReturn = []
+    let winner1, winner2, loser1, loser2
     for (let i = 0; i < arrayTeams.length; i++){
         const paring = arrayTeams[i]
         if(i==0){
