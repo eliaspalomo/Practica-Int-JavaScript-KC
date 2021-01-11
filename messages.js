@@ -7,7 +7,7 @@ const championLine         = (teamWinner)                             => {consol
 const group                = (grupo)                                  => {console.log(`- Grupo ${grupo}`)}
 const teamsLine            = (nameT, pointsT)                         => {console.log(`     ${nameT} con los Puntos FIFA ${pointsT}`)}
 const jornadaLine          = (jornada)                                => {console.log(`        Jornada ${jornada}`)}
-const jornadaLineGrupo     = (group, jornada)                         => {console.log(`Grupo ${group} - Jornada ${jornada}`)}
+const jornadaLineGrupo     = (group, jornada)                         => {console.log(`Grupo ${group}`)}
 const partidosLine         = (partidos)                               => {console.log('            ', partidos)}
 const tablaClasification   = (standing)                               => {console.table(standing)} 
 const iguales = () => {
@@ -18,7 +18,7 @@ const iguales = () => {
 
 const guiones = () => {
     let cadena = ''
-    while (cadena.length < (largoMessage/2)) {cadena += '-'}
+    while (cadena.length < (largoMessage/3)) {cadena += '-'}
     console.log(cadena)
 }
 
@@ -100,28 +100,37 @@ export function initMundial(groupsteams){
 }
 
 export function jornadasMundial(groupsTeams){
-    //TO_DO 5, poner primero las jornadas todos los equipos
-    groupsTeams.groupsLeagueTeams.forEach(groupLeagueTeams =>{
-        let i = 1
-        groupLeagueTeams.summaries.forEach(summary => {
-            jornadaLineGrupo(groupLeagueTeams.name,i)
-            guiones()
-            summary.results.forEach(result => {
-                mostrarResultado(result.localTeam, result.localGoals, result.awayTeam, result.awayGoals)
-            })
-            
-            tablaClasification(summary.standing.map(team => {
-                    return {
-                        Equipo: team.name,
-                        Puntos: team.points,
-                        Goles_favor: team.goalsFor,
-                        Goles_contra: team.goalsAgainst,
-                        Diferencia_goles: team.goalsFor - team.goalsAgainst}
+    for(let jornada = 1; jornada <= 3; jornada++){
+        iguales()
+        jornadaLine(jornada)
+        iguales()
+        groupsTeams.groupsLeagueTeams.forEach(groupLeagueTeams =>{
+            let i = 1
+            groupLeagueTeams.summaries.forEach(summary => {
+                if(jornada==i){
+                    jornadaLineGrupo(groupLeagueTeams.name)
+                    guiones()
+                    summary.results.forEach(result => {
+                        mostrarResultado(result.localTeam, result.localGoals, result.awayTeam, result.awayGoals)
                     })
-                )
-            i++
+                    
+                    tablaClasification(summary.standing.map(team => {
+                            return {
+                                Equipo: team.name,
+                                Puntos: team.points,
+                                Ganados: team.matchesWon,
+                                Empates: team.matchesDrawn,
+                                Perdidos: team.matchesLost,
+                                Favor: team.goalsFor,
+                                Contra: team.goalsAgainst,
+                                Diferencia: team.goalsFor - team.goalsAgainst}
+                            })
+                        )
+                        }
+                i++
+            })
         })
-    })
+    }
 }
 
 export function eliminatoryMundial(fase, arrayTeams){

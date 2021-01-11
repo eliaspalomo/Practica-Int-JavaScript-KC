@@ -1,18 +1,18 @@
 const debug = 0
 
 import {initialError, initMundial, jornadasMundial, eliminatoryMundial, finalesMundial} from './messages.js'
-import {MundialTeams} from './teamsPoints.js'
+import {mundialTeams} from './teamsPoints.js'
 import GroupLeagueTeams from './classes/GroupLeagueTeams.js'
 import {eighthsPairing, quartersPairing, semifinalsPairing, finalPairing} from './pairingPhase.js'
 import gameEliminatory from './gameEliminatory.js'
 
-if(MundialTeams.length != 32) {
+if(mundialTeams.length != 32) {
     initialError()
 }else{
     //Inicio del Mundial, con los Grupos, sus equipos y la planificacion de Jornadas
     const config = { rounds:1 }
     const GroupsLeague = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-    const GroupsLeagueAll = new GroupLeagueTeams(GroupsLeague, MundialTeams, config)
+    const GroupsLeagueAll = new GroupLeagueTeams(GroupsLeague, mundialTeams, config)
     if (debug == 0 || debug == 1) {initMundial(GroupsLeagueAll)}
 
     //Jornadas de la fase de Grupos

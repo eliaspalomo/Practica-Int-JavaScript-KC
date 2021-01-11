@@ -13,7 +13,7 @@ export const UEFATeams = [{name: 'Rusia', pointsFIFA: 1461},{name: 'Alemania', p
                 {name: 'Suecia', pointsFIFA: 1558},{name: 'Suiza', pointsFIFA: 1593}]
 
 
-export const MundialTeams = [
+export const mundialTeams = [
     ...AFCTeams,
     ...CAFTeams,
     ...ConcacafTeams,
