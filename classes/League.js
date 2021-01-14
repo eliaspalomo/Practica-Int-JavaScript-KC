@@ -43,7 +43,6 @@ export default class League {
     customizeTeam(teamName) {
         return {
             name: teamName.name,
-            pointsFIFA: teamName.pointsFIFA, 
             matchesWon: 0,
             matchesDrawn: 0,
             matchesLost: 0

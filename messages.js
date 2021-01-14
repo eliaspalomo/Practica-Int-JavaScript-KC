@@ -44,13 +44,13 @@ const resultPlay = (resultL, resultA) => {
     if(enteroLC.length == 1) {enteroLC = ' ' + enteroLC}
     if(enteroAC.length == 1) {enteroAC = ' ' + enteroAC}
 
-    if (decimalL == 0) {
+    if (decimalL == 0 && decimalA == 0) {
         cadenaL = enteroLC + '   '
     }else{
         cadenaL = enteroLC + '(' + decimalLC + ')'
     }
 
-    if (decimalA == 0) {
+    if (decimalL == 0 && decimalA == 0) {
         cadenaA = enteroAC + '   '
     }else{
         cadenaA = enteroAC + '(' + decimalAC + ')'
@@ -152,6 +152,7 @@ export function eliminatoryMundial(fase, arrayTeams){
         teamA = paring.awayteam
         resultA = paring.awaygoals
         winner = paring.winnerteam
+        if(paring.prorroga) {winner +='   [Prorroga]'}
         mostrarResultadoElim(teamL, resultL, teamA, resultA, winner)
     }
     linea()
@@ -167,12 +168,14 @@ export function finalesMundial(arrayTeams){
             resultCA = paring.awaygoals
             winnerC = paring.winnerteam
             champion = winnerC
+            if(paring.prorroga) {winnerC +='   [Prorroga]'}
         }else{
             teamLL = paring.localteam
             resultLL = paring.localgoals
             teamLA = paring.awayteam
             resultLA = paring.awaygoals
             winnerL = paring.winnerteam
+            if(paring.prorroga) {winnerL +='   [Prorroga]'}
         }
     }
 

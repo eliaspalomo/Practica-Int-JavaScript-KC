@@ -3,8 +3,10 @@
 He utilizado los equipos que fueron al Mundial de Rusia 2018, con sus Confederaciones
 
 Si utilizo los puntos son a fecha 10 de diciembre
-* Para el Sorteo, por orden de Puntos
+* Para el Sorteo, por orden de Puntos, en GroupLeagueTeams.js
+* Para los goles, siempre sera mas facil que margue goles un equipo que tenga mas puntos FIFA, en utiles.js
 
+Cuando tengamos una Prorroga se indicara en el resultado
 Los penlatis en caso de que existan se pondran entre parentesis
 
 La variables debug, la utilizo para ver los mensajes por bloques

@@ -7,5 +7,6 @@ export default class Eliminatory {
         this.awaygoals = 0
         this.winnerteam = null
         this.loserteam = null
+        this.prorroga = false
     }
 }
