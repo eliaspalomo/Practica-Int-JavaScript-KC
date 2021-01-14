@@ -24,6 +24,7 @@ export default class PointsBasedLeague extends League {
             points: 0,
             goalsFor: 0,
             goalsAgainst: 0,
+            teamWins:[],//Equipos a los que ha ganado, en la liguilla, para la ordenación
             ...customizedTeam
         }
     }
@@ -49,6 +50,7 @@ export default class PointsBasedLeague extends League {
             if(result.localGoals > result.awayGoals){
                 localTeam.points += this.config.pointsPerWin
                 localTeam.matchesWon += 1
+                localTeam.teamWins.push(awayTeam.name)
                 awayTeam.points += this.config.pointsPerLose
                 awayTeam.matchesLost += 1
             } else if(result.localGoals < result.awayGoals){
@@ -56,6 +58,7 @@ export default class PointsBasedLeague extends League {
                 localTeam.matchesLost += 1
                 awayTeam.points += this.config.pointsPerWin
                 awayTeam.matchesWon += 1
+                awayTeam.teamWins.push(localTeam.name)
             } else {
                 localTeam.points += this.config.pointsPerDraw
                 localTeam.matchesDrawn += 1
@@ -72,23 +75,30 @@ export default class PointsBasedLeague extends League {
             } else if(teamA.points < teamB.points) {
                 return 1
             } else {
-                const goalsDiffA = teamA.goalsFor - teamA.goalsAgainst
-                const goalsDiffB = teamB.goalsFor - teamB.goalsAgainst
-                if (goalsDiffA > goalsDiffB) {
-                    return -1
-                } else if (goalsDiffA < goalsDiffB) {
-                    return 1
-                } else {
-                    if (teamA.name > teamB.name) {
+                let machtTeamATeamB = 0
+
+                if (teamA.teamWins.find(name => name == teamB.name) == teamB.name) {machtTeamATeamB = -1}
+                if (teamB.teamWins.find(name => name == teamA.name) == teamA.name) {machtTeamATeamB = 1}
+                if (machtTeamATeamB==0){
+                    const goalsDiffA = teamA.goalsFor - teamA.goalsAgainst
+                    const goalsDiffB = teamB.goalsFor - teamB.goalsAgainst
+                    if (goalsDiffA > goalsDiffB) {
                         return -1
-                    } else if (teamA.name < teamB.name) {
+                    } else if (goalsDiffA < goalsDiffB) {
                         return 1
                     } else {
-                        return 0
+                        if (teamA.name > teamB.name) {
+                            return -1
+                        } else if (teamA.name < teamB.name) {
+                            return 1
+                        } else {
+                            return 0
+                        }
                     }
+                }else{
+                    return machtTeamATeamB
                 }
             }
         })
     }
-
 }
